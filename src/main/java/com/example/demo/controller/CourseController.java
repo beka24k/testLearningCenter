@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -29,6 +30,20 @@ public class CourseController {
 
     private final CourseService courseService;
     private final UserRepository userRepository;
+
+    @PreAuthorize("hasRole('ADMIN')")
+@PostMapping
+public ResponseEntity<?> createCourse(@RequestBody Course course) {
+    try {
+        Course savedCourse = courseService.createCourse(course);
+        return ResponseEntity.ok(savedCourse);
+    } catch (IllegalArgumentException e) {
+        return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
+    } catch (Exception e) {
+        return ResponseEntity.internalServerError().body(Map.of("error", "Произошла внутренняя ошибка сервера"));
+    }
+}
+
 
     //Получение всех курсов
     @GetMapping
