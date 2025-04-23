@@ -1,0 +1,109 @@
+{
+  "info": {
+    "name": "Learning Center API",
+    "_postman_id": "12345678-1234-1234-1234-123456789012",
+    "description": "Полная коллекция запросов к API учебного центра",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Auth - Register",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"username\": \"student1@example.com\", \"password\": \"123456\", \"firstName\": \"Айгерим\", \"lastName\": \"Ибраева\"}"
+        },
+        "url": {
+          "raw": "{{base_url}}/auth/register"
+        }
+      }
+    },
+    {
+      "name": "Auth - Login",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"username\": \"student1@example.com\", \"password\": \"123456\"}"
+        },
+        "url": {
+          "raw": "{{base_url}}/auth/login"
+        }
+      }
+    },
+    {
+      "name": "Courses - Get All",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{base_url}}/courses"
+        }
+      }
+    },
+    {
+      "name": "Courses - Register to Course",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt_token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/courses/1/register"
+        }
+      }
+    },
+    {
+      "name": "Courses - Create (Admin Only)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt_token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"name\": \"Java Spring Boot\", \"description\": \"Интенсив по бэкенду\", \"startDate\": \"2025-05-01\", \"endDate\": \"2025-07-30\"}"
+        },
+        "url": {
+          "raw": "{{base_url}}/courses"
+        }
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8080/api"
+    },
+    {
+      "key": "jwt_token",
+      "value": "токен сюда"
+    }
+  ]
+}
